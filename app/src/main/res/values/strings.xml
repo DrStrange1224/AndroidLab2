@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="default_str" translatable="false">NOT_DEFINED</string>
-    <string name="app_name">Laba</string>
-
-    <string name="icon_dev_name">Petrov Maxim Eduardovich</string>
-    <string name="icon_group_num">Gr. \"Б23-191-2\"</string>
-
-    <string name="contact_phone" translatable="false">+7 (951) 216 59-89</string>
-    <string name="contact_tg" translatable="false">\@n0t1mee</string>
-    <string name="contact_email" translatable="false">maksim.petr0w@mail.ru</string>
+    <string name="app_name" translatable="false">Laba</string>
 </resources>

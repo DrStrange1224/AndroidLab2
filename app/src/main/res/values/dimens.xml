@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="icon_incol_space">10dp</dimen>
-    <dimen name="icon_dev_name_fontsz">28sp</dimen>
-    <dimen name="icon_group_num_fontsz">24sp</dimen>
 
-    <dimen name="contacts_fontsz">18sp</dimen>
-    <dimen name="contacts_icon_width">32dp</dimen>
-    <dimen name="contacts_inrow_space">25dp</dimen>
-    <dimen name="contacts_incol_space">15dp</dimen>
 </resources>
