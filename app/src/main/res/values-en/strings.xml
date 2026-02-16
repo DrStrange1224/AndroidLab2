@@ -1,3 +1,14 @@
 <resources>
-
+    <string name="prev_btn">Previous</string>
+    <string name="next_btn">Next</string>
+    <string name="art1_title">Mona Lisa</string>
+    <string name="art1_artist">Leonardo da Vinci</string>
+    <string name="art2_title">Sunflowers</string>
+    <string name="art2_artist">Van Gogh</string>
+    <string name="art3_title">The Last Supper</string>
+    <string name="art3_artist">Leonardo da Vinci</string>
+    <string name="art4_title">School Of Athens</string>
+    <string name="art4_artist">Raphael</string>
+    <string name="art5_title">The Fighting Temeraire</string>
+    <string name="art5_artist">J.M.W. Turner</string>
 </resources>

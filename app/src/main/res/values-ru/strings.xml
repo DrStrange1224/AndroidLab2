@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="prev_btn">Предыдущий</string>
+    <string name="next_btn">Следующий</string>
+    <string name="art1_title">Мона Лиза</string>
+    <string name="art1_artist">Леонардо да Винчи</string>
+    <string name="art2_title">Подсолнухи</string>
+    <string name="art2_artist">Ван Гог</string>
+    <string name="art3_title">Последняя Вечеря</string>
+    <string name="art3_artist">Леонардо да Винчи</string>
+    <string name="art4_title">Афинская школа</string>
+    <string name="art4_artist">Рафаэль</string>
+    <string name="art5_title">Последний рейс корабля «Отважный»</string>
+    <string name="art5_artist">Уильям Тёрнер</string>
+</resources>
