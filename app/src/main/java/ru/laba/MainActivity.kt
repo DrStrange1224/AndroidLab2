@@ -23,7 +23,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -38,6 +40,8 @@ import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     lateinit var curPage : MutableState<Int>
+    lateinit var isFirstPage : MutableState<Boolean>
+    lateinit var isLastPage : MutableState<Boolean>
 
     /**
      * START
@@ -47,6 +51,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             curPage = remember { mutableIntStateOf(0) }
+            isFirstPage = remember { mutableStateOf(true) }
+            isLastPage = remember { mutableStateOf(false) }
             RefreshComposition()
         }
     }
@@ -204,12 +210,14 @@ class MainActivity : ComponentActivity() {
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Button(
-                onClick = { goPrev() }
+                onClick = { goPrev() },
+                enabled = !isFirstPage.value
             ){
                 Text(text=stringResource(R.string.prev_btn))
             }
             Button(
-                onClick = { goNext() }
+                onClick = { goNext() },
+                enabled = !isLastPage.value
             ){
                 Text(text=stringResource(R.string.next_btn))
             }
@@ -219,21 +227,33 @@ class MainActivity : ComponentActivity() {
     /**
      * Decreases value of [curPage]
      *
-     * If value is zero, it's not changing
+     * If value is zero, it's not changing, and makes "Prev" button non-enabled
      */
     fun goPrev(){
+        isLastPage.value = false
         curPage.value--
-        if (curPage.value < 0) curPage.value++
+        if (curPage.value == 0){
+            isFirstPage.value = true
+        }
+        else if (curPage.value < 0){
+            curPage.value++
+        }
     }
 
     /**
      * Increases value of [curPage]
      *
-     * If value is equal to arts count (length of [Arts] array), it's not changing
+     * If value is equal to arts count (length of [Arts] array), it's not changing, and makes "Next" button non-enabled
      */
     fun goNext(){
+        isFirstPage.value = false
         curPage.value++
-        if (curPage.value >= Arts.size) curPage.value--
+        if (curPage.value == Arts.size - 1){
+            isLastPage.value = true
+        }
+        else if (curPage.value >= Arts.size){
+            curPage.value--
+        }
     }
 
     /**
