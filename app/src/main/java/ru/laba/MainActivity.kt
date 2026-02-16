@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,19 +37,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
-    lateinit var state : MutableState<Int>
+    lateinit var curPage : MutableState<Int>
 
-    //START
+    /**
+     * START
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            state = remember { mutableIntStateOf(0) }
+            curPage = remember { mutableIntStateOf(0) }
             RefreshComposition()
         }
     }
 
-    //for checking if orientation changed
+    /**
+     * Launches when orientation changes
+     */
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setContent {
@@ -56,10 +61,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
+    /**
+     * Launches EITHER at app starting OR when orientation changes
+     */
     @Composable
     fun RefreshComposition(){
         Scaffold(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color=MaterialTheme.colorScheme.background),
         ){
             innerPadding -> run {
                 if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -71,13 +82,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * App composition for portrait orientation
+     */
     @Preview
     @Composable
     fun MainPortraitSurface(innerPadding : PaddingValues = PaddingValues(all=0.dp)){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start=30.dp, end=30.dp, top=30.dp), //TODO clear hardcode
+                .padding(
+                    all=dimensionResource(R.dimen.mainSurfacePadding)
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageSection(
@@ -92,26 +108,41 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * App composition for landscape orientation
+     */
     @Preview
     @Composable
     fun MainLandscapeSurface(innerPadding : PaddingValues = PaddingValues(all=0.dp)){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start=30.dp, end=30.dp, top=30.dp, bottom = 30.dp), //TODO clear hardcode
+                .padding(
+                    all=dimensionResource(R.dimen.mainSurfacePadding)
+                ),
         ) {
             ImageSection(
-                modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(bottom=60.dp) //TODO clear hardcode
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
+                    .padding(bottom=dimensionResource(R.dimen.extraLandImgBottomPadding))
             )
             TitleSection(
-                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
             )
             ButtonSection(
-                modifier = Modifier.fillMaxWidth().align(Alignment.BottomStart)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomStart)
             )
         }
     }
 
+    /**
+     * Part of composition that includes image and its background
+     */
     @Composable
     fun ImageSection(modifier : Modifier){
         Box(
@@ -120,22 +151,28 @@ class MainActivity : ComponentActivity() {
         ) {
             Box(
                 modifier = Modifier
-                    .background(color=Color.Gray) //TODO clear hardcode
+                    .background(color= MaterialTheme.colorScheme.secondary)
                     .align(Alignment.Center)
-                    .size(width=250.dp, height=380.dp) //TODO clear hardcode
-                    .shadow(elevation = 5.dp) //TODO clear hardcode
+                    .size(
+                        width=dimensionResource(R.dimen.imgFrameWidth),
+                        height=dimensionResource(R.dimen.imgFrameHeight)
+                    )
+                    .shadow(elevation = dimensionResource(R.dimen.shadowElevation))
             ){
                 Image(
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .padding(top=20.dp, bottom=20.dp, start=20.dp, end=20.dp), //TODO clear hardcode
+                        .padding(all=dimensionResource(R.dimen.minImagePadding)),
                     painter = painterResource(id = getCurArtwork().artId),
-                    contentDescription = null
+                    contentDescription = stringResource(getCurArtwork().descriptionId),
                 )
             }
         }
     }
 
+    /**
+     * Part of composition that includes title and subtitle
+     */
     @Composable
     fun TitleSection(modifier : Modifier){
         Column(
@@ -144,17 +181,22 @@ class MainActivity : ComponentActivity() {
         ) {
             Text(
                 text=stringResource(getCurArtwork().titleId),
-                fontSize = 32.sp, //TODO clear hardcode
+                fontSize = dimensionResource(R.dimen.titleFontSize).value.sp,
+                color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
             )
             Text(
-                text=stringResource(getCurArtwork().artistId),
-                fontSize = 18.sp, //TODO clear hardcode
+                text = stringResource(getCurArtwork().artistId),
+                fontSize = dimensionResource(R.dimen.subtitleFontSize).value.sp,
+                color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
             )
         }
     }
 
+    /**
+     * Part of composition that includes buttons
+     */
     @Composable
     fun ButtonSection(modifier : Modifier){
         Row(
@@ -174,17 +216,30 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Decreases value of [curPage]
+     *
+     * If value is zero, it's not changing
+     */
     fun goPrev(){
-        state.value--
-        if (state.value < 0) state.value++
+        curPage.value--
+        if (curPage.value < 0) curPage.value++
     }
 
+    /**
+     * Increases value of [curPage]
+     *
+     * If value is equal to arts count (length of [Arts] array), it's not changing
+     */
     fun goNext(){
-        state.value++
-        if (state.value >= Arts.size) state.value--
+        curPage.value++
+        if (curPage.value >= Arts.size) curPage.value--
     }
 
+    /**
+     * Returning current showing art information as [Artwork] data class
+     */
     fun getCurArtwork() : Artwork{
-        return Arts[state.value]
+        return Arts[curPage.value]
     }
 }

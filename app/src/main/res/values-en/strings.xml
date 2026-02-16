@@ -11,4 +11,9 @@
     <string name="art4_artist">Raphael</string>
     <string name="art5_title">The Fighting Temeraire</string>
     <string name="art5_artist">J.M.W. Turner</string>
+    <string name="art1_descr">The Mona Lisa by Leonardo da Vinci is the most famous painting in the world. Made in the early sixteenth century, the Mona Lisa is the most widely recognized painting worldwide and is, in fact, a part of popular as well as classical culture.</string>
+    <string name="art2_descr">Few still-life paintings are as famous across the world as this painting by Van Gogh. Distinguished easily by the cheerful gold hues, Sunflowers features a group of sunflowers in a vase.</string>
+    <string name="art3_descr">The Last Supper was also painted by Leonardo da Vinci and is among his most famous paintings of all time. It is currently at the Santa Maria delle Grazie in Milan. It is believed to have been one of Vinci’s early paintings and is one of the best paintings in the world to depict Jesus having the last supper with his disciples.</string>
+    <string name="art4_descr">Raphael, who is one of the famous four leading lights of the Renaissance, made this painting in the year 1511. School of Athens is widely regarded as a masterpiece of the painter and is the epitome of Renaissance painting and famously features ancient philosophers like Aristotle and Plato.</string>
+    <string name="art5_descr">The Fighting Temeraire By J.M.W. Turner was made in 1839 and features a warship from the Royal Navy which had been used in the Battle of Trafalgar of 1805. In this painting, the ship is shown to be drawn by a small boat to a harbor where it is going to be retired. The setting sun in the background suggests that the ship has seen its best days.</string>
 </resources>

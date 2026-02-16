@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="titleFontSize">32sp</dimen>
+    <dimen name="subtitleFontSize">18sp</dimen>
+    <dimen name="minImagePadding">20dp</dimen>
+    <dimen name="shadowElevation">5dp</dimen>
+    <dimen name="imgFrameWidth">250dp</dimen>
+    <dimen name="imgFrameHeight">380dp</dimen>
+    <dimen name="mainSurfacePadding">30dp</dimen>
+    <dimen name="extraLandImgBottomPadding">60dp</dimen>
 </resources>
